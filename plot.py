@@ -1,4 +1,3 @@
-
 from pathlib import Path
 
 import matplotlib
@@ -15,24 +14,25 @@ def main():
     x = np.linspace(-2, 2, 401)
     y = x**2
 
-    figure, axis = plt.su**lots(figsize=(7, 5))
+    figure, axis = plt.subplots(figsize=(7, 5))
 
-    axis.pl**(x, y, color="blue", linewidth=2,**abel=r"$y=x^2$")
-    axis.axhline**, color="black", linewidth=0.8)
- ** axis.axvline(0, color="black", l**ewidth=0.8)
-    axis.set_xlim(-2,**)
+    axis.plot(x, y, color="blue", linewidth=2, label=r"$y=x^2$")
+    axis.axhline(0, color="black", linewidth=0.8)
+    axis.axvline(0, color="black", linewidth=0.8)
+    axis.set_xlim(-2, 2)
     axis.set_xlabel("x")
-    ax**.set_ylabel("y")
-    axis.set_tit**(r"Plot of $y=x^2$")
-    axis.gri**True, alpha=0.3)
-    axis.legend(**
-    output_file = Path(__file__)**esolve().parent / "f1.png"
-    fi**re.tight_layout()
-    figure.save**g(output_file, dpi=200)
-    plt.c**se(figure)
+    axis.set_ylabel("y")
+    axis.set_title(r"Plot of $y=x^2$")
+    axis.grid(True, alpha=0.3)
+    axis.legend()
 
-    print(f"Saved plo**to {output_file}")
+    output_file = Path(__file__).resolve().parent / "f1.png"
+    figure.tight_layout()
+    figure.savefig(output_file, dpi=200)
+    plt.close(figure)
+
+    print(f"Saved plot to {output_file}")
 
 
-if __name__ ** "__main__":
+if __name__ == "__main__":
     main()
