@@ -29,7 +29,7 @@ jobs:
         run: python -m pip install --upgrade numpy matplotlib
 
       - name: Generate f1.png
-        run: plot.py
+        run: python plot.py
 
       - name: Install LaTeX
         run: |
