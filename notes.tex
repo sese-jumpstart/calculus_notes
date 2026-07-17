@@ -1,32 +1,315 @@
-\documentclass{article}
-
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb, amsthm}
 \usepackage{graphicx}
-\usepackage[margin=1in]{geometry}
+\usepackage{booktabs}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{caption}
 
-\title{A Calculus Formula and Plot}
-\author{}
+\geometry{margin=1in}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+
+\fancyfoot[L]{\small \textit{Calculus Concepts, Bryan}}
+\fancyfoot[C]{\thepage}
+\fancyfoot[R]{\small \textit{Last Edit: 7/11/2026}}
+
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\title{Key Concepts in Calculus}
+\author{Sean Bryan\\\textit{Arizona State University}}
 \date{}
 
 \begin{document}
 
 \maketitle
 
-Below is a formula \(x^2\).
+\thispagestyle{fancy}
 
-The displayed formula is
+\section{Acceleration, Position, and Velocity}
+Let's start with acceleration. Imagine you hit the gas in your stopped car as hard as you can. We can represent this constant acceleration as:
+\begin{equation} \label{eqn:accel}
+a(t) = a_0
+\end{equation}
 
-\[
-x^2
-\]
+As a result, as illustrated in Figure \ref{fig:velocity} the velocity increases linearly over time:
+\begin{equation} \label{eqn:vel}
+v(t) = a_0 t
+\end{equation}
 
-Figure~\ref{fig:xsquared} shows the graph of \(y=x^2\) for
-\(-2 \leq x \leq 2\).
-
-\begin{figure}[htbp]
- \centering
- \includegraphics[width=0.8\textwidth]{f1.png}
- \caption{The graph of \(y=x^2\) on the interval \([-2,2]\).}
- \label{fig:xsquared}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.45\textwidth]{fig1_velocity.png}
+    \caption{Velocity $v(t)$ as a function of time under constant acceleration $a(t) = a_0$.}
+    \label{fig:velocity}
 \end{figure}
+
+Initially, the position $y(t)$ does not change much because the velocity is low. However, as velocity grows, your position changes rapidly. This means $y(t)$ is.
+\begin{equation}
+y(t) = \frac{1}{2} a_0 t^2
+\end{equation}
+
+We can see this visually in Figure \ref{fig:position}, where the slope is initially flat (``small slope'') and grows increasingly steep (``high slope'').
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.45\textwidth]{fig2_position.png}
+    \caption{Position $y(t)$ as a function of time.}
+    \label{fig:position}
+\end{figure}
+
+Let's confirm that all of these formulas are true by working backwards. As illustrated in Figure~\ref{fig:derivative_concept}, velocity is the change in position ($\Delta y$) divided by the change in time ($\Delta t$).
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.45\textwidth]{fig3_derivative.png}
+    \caption{The approximate velocity $\Delta y / \Delta t$ at a time t on a graph of the position $y(t)$.}
+    \label{fig:derivative_concept}
+\end{figure}
+
+\begin{equation}
+v(t) \approx \frac{\Delta y}{\Delta t} = \frac{y(t+\Delta t) - y(t)}{\Delta t}
+\end{equation}
+
+Plugging in our formula for $y(t)$:
+\begin{align}
+\frac{\Delta y}{\Delta t} &= \frac{\frac{1}{2}a_0(t+\Delta t)^2 - \frac{1}{2}a_0 t^2}{\Delta t} \\ \nonumber
+&= \frac{\frac{1}{2}a_0(t+\Delta t)(t+\Delta t) - \frac{1}{2}a_0 t^2}{\Delta t} \\ \nonumber
+&= \frac{\frac{1}{2}a_0 \left[ t^2 + 2t\Delta t + \Delta t^2 \right] - \frac{1}{2}a_0 t^2}{\Delta t} \\ \nonumber
+&= \frac{\frac{1}{2}a_0 t^2 + a_0 t \Delta t + \frac{1}{2}a_0 \Delta t^2 - \frac{1}{2}a_0 t^2}{\Delta t} \\ \nonumber
+&= \frac{a_0 t \Delta t + \frac{1}{2}a_0 \Delta t^2}{\Delta t} \\ \nonumber
+&= a_0 t + \frac{1}{2}a_0 \Delta t
+\end{align}
+
+To make this last formula exact, we consider finer and finer timesteps until $\Delta t$ goes to zero. Plugging in zero for $\Delta t$ yields
+\begin{equation}
+v(t) = \frac{dy}{dt} = a_0 t
+\end{equation}
+This yields the velocity formula we assumed in Equation~\ref{eqn:vel}.
+
+Applying the same procedure to find the acceleration from this velocity formula yields
+\begin{align}
+a(t) &\approx \frac{\Delta v}{\Delta t} = \frac{v(t+\Delta t) - v(t)}{\Delta t} \\ \nonumber
+&= \frac{a_0(t+\Delta t) - a_0 t}{\Delta t} \\ \nonumber
+&= \frac{a_0 t + a_0 \Delta t - a_0 t}{\Delta t} = a_0
+\end{align}
+This again yields the acceleration equation we assumed in Equation~\ref{eqn:accel}. In this case, because the velocity was strictly linear, our approximation turned out to be exact.
+
+\section{Summary of Calculus Operations}
+In general:
+\begin{itemize}
+    \item If you know position $y(t)$, you can take the derivitive to find velocity and acceleration:
+    \[ y(t) \xrightarrow{\frac{d}{dt}} v(t) \xrightarrow{\frac{d}{dt}} a(t) \]
+    \item If you know acceleration $a(t)$, you can take the integral to find velocity and position (introducing constants of integration $+C$):
+    \begin{align}
+    v(t) &= \int a(t) \, dt + v_0 \\
+    y(t) &= \int v(t) \, dt + y_0
+    \end{align}
+\end{itemize}
+
+\begin{table}
+\centering
+\caption{Common Derivatives and Integrals}
+\label{tab:common_rules}
+\begin{tabular}{lll}
+\toprule
+\textbf{Function $f(x)$} & \textbf{Derivative $\frac{d}{dx}f(x)$} & \textbf{Integral $\int f(x) \, dx$} \\
+\midrule
+$x^n$ & $n x^{n-1}$ & $\frac{x^{n+1}}{n+1} + C \quad (n \neq -1)$ \\
+$\sin(x)$ & $\cos(x)$ & $-\cos(x) + C$ \\
+$\cos(x)$ & $-\sin(x)$ & $\sin(x) + C$ \\
+$e^x$ & $e^x$ & $e^x + C$ \\
+$\ln(x)$ & $\frac{1}{x}$ & $x\ln(x) - x + C$ \\
+$\frac{1}{x}$ & $-\frac{1}{x^2}$ & $\ln|x| + C$ \\
+\bottomrule
+\end{tabular}
+\\
+
+
+\medskip
+\medskip
+\medskip
+
+\begin{tabular}{@{}l@{\qquad}l@{}}
+
+\textbf{Constant Multiple:}&
+\(\displaystyle \frac{d}{dx}[c \cdot u(x)] = c\frac{du}{dx}\) \\[8ex]
+
+\textbf{Sum Rule:}&
+\(\displaystyle \frac{d}{dx}[u(x)+v(x)]
+= \frac{du}{dx}+\frac{dv}{dx}\) \\[8ex]
+
+\textbf{Product Rule:}&
+\(\displaystyle \frac{d}{dx}[u(x)\cdot v(x)]
+= \frac{du}{dx}v(x)+u(x)\frac{dv}{dx}\) \\[8ex]
+
+\textbf{Quotient Rule:}&
+\(\displaystyle \frac{d}{dx}\left[\frac{u(x)}{v(x)}\right]
+= \frac{v(x)\frac{du}{dx}-u(x)\frac{dv}{dx}}{[v(x)]^2}\) \\[8ex]
+
+\textbf{Chain Rule:}&
+\(\displaystyle \frac{d}{dx}[u(v(x))]
+= \frac{du}{dv}\cdot\frac{dv}{dx}\) \\[8ex]
+
+\textbf{Integration by Parts:}&
+\(\displaystyle \int u\,dv = uv-\int v\,du\) \\
+\end{tabular}
+
+\end{table}
+
+\section{Motivating Key Calculus Results}
+
+Here are some motivations (maybe not full mathematical ``proofs'' in every case) of the results in Table~\ref{tab:common_rules}. There are of course full mathematical proofs of all of these results available in textbooks and the literature, but the intent here is to motivate the results so we can apply them to real problems.
+
+\subsection{Sine and Cosine}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.50\textwidth]{fig4_circle.png}
+    \caption{A rotating vector of length 1.}
+    \label{fig:circle}
+\end{figure}
+
+Let's draw a vector $\vec{y}$ that has a length of 1 and is rotating about the center counterclockwise. At a certain moment it is at an angle $\theta$. This is drawn in Figure \ref{fig:circle}. The coordinates of this vector are
+\begin{equation}
+\vec{y}(\theta) = (\cos\theta, \sin\theta).
+\end{equation}
+
+The tip of the vector is moving at a $90^\circ$ angle relative to the position vector. Drawing another vector $\frac{d\vec{y}}{dt}$ at $90^\circ$ but keeping the same length as the original means swapping the two coordinates, and putting in a minus sign, yielding
+\begin{equation}
+\frac{d\vec{y}}{dt} = (-\sin\theta, \cos\theta).
+\end{equation}
+
+Since this velocity is the derivative of the position, that means that
+\begin{eqnarray}
+\frac{d}{dx} \cos(x) &=& -\sin(x) \\ \nonumber
+\frac{d}{dx} \sin(x) &=& \cos(x), \\
+\end{eqnarray}
+just as is written in Table~\ref{tab:common_rules}.
+
+\subsection{Exponential}
+For $y = e^x$, we set up the definition of the approximate derivative:
+\begin{equation}\label{eqn:exp}
+\frac{\Delta y}{\Delta x} = \frac{e^{x+\Delta x} - e^x}{\Delta x} = \frac{e^x e^{\Delta x} - e^x}{\Delta x} = e^x \left( \frac{e^{\Delta x} - 1}{\Delta x} \right).
+\end{equation}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\textwidth]{fig5_exponential.png}
+    \caption{Plot of $\frac{e^{\Delta x} - 1}{\Delta x}$ approaching $1$ as $\Delta x$ goes to zero.}
+    \label{fig:exponential}
+\end{figure}
+
+Let's examine the behavior of the term $\frac{e^{\Delta x} - 1}{\Delta x}$ as $\Delta x$ goes to zero by plotting it as shown in Figure \ref{fig:exponential}. This shows that when $\Delta x$ goes to zero, the term $\frac{e^{\Delta x} - 1}{\Delta x}$ goes to $1$. Therefore, putting this result into Equation~\ref{eqn:exp} yields
+\begin{equation}
+\frac{d}{dx} e^x = e^x
+\end{equation}
+which is exactly the result in Table~\ref{tab:common_rules}.
+
+\subsection{Logarithm}
+Using this knowledge of the derivative of $e^x$, we can find the derivative of $y = \ln(x)$. First we rewrite this same equation for $y$ using the relationship between logarithms and exponentials as
+\begin{equation}
+e^y = x.
+\end{equation}
+Differentiating both sides with respect to $y$ yields
+\begin{align}
+\frac{d}{dy} e^y &= \frac{dx}{dy} \\ \nonumber
+e^y &= \frac{dx}{dy} \\ \nonumber
+x &= \frac{dx}{dy}. \\
+\intertext{Taking the reciprocal of both sides,}
+\frac{1}{x} &= \frac{dy}{dx} \\ \nonumber
+\frac{1}{x} &= \frac{d}{dx} \ln(x),
+\end{align}
+which is exactly what is written in Table~\ref{tab:common_rules}.
+
+\subsection{Chain Rule}
+For the derivative of a composition of functions $y = u(v(x))$, we can think of dimensional analysis (i.e. unit analysis):
+\begin{equation}
+\frac{dy}{dx} = \frac{du}{dv} \cdot \frac{dv}{dx}
+\end{equation}
+In some sense the $dv$ ``cancels out'' yielding the desired result.
+
+\subsection{Product Rule}
+To find the derivative of a product $y = u(x) \cdot v(x)$, let's look at the change in area of a rectangle with sides $u(x)$ and $v(x)$ when $x$ increases by $\Delta x$. This is illustrated in Figure \ref{fig:product_rule}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.55\textwidth]{fig6_product_rule.png}
+    \caption{Geometric interpretation of the product rule using area changes.}
+    \label{fig:product_rule}
+\end{figure}
+
+The total new area is $y(x+\Delta x) = u(x+\Delta x) \cdot v(x+\Delta x)$. The change in area $\Delta y$ is composed of two components (ignoring the small corner):
+\begin{itemize}
+    \item \textbf{Area 1:} $u(x) \cdot \Delta v$
+    \item \textbf{Area 2:} $\Delta u \cdot v(x)$
+\end{itemize}
+
+Dividing by $\Delta x$:
+\begin{equation}
+\frac{\Delta y}{\Delta x} = \frac{\Delta u}{\Delta x}v(x) + u(x)\frac{\Delta v}{\Delta x}
+\end{equation}
+
+As $\Delta x$ goes to zero, this yields the product rule formula:
+\begin{equation}
+\frac{d}{dx} [u(x) \cdot v(x)] = \frac{du}{dx} v(x)  + u(x) \frac{dv}{dx}
+\end{equation}
+
+To memorize this, the classic sentence to say repeatedly to yourself is ``one prime two, plus one two prime'' where ``prime'' is short for $d/dx$. It's not silly if it works...
+
+\subsection{Quotient Rule}
+
+We can combine the product rule, chain rule, and our knowledge of the derivative of $1/x$ to yield the quotient rule.
+
+To find the derivative of a quotient
+\begin{equation}
+y = \frac{u(x)}{v(x)},
+\end{equation}
+we first rewrite this as a product
+\begin{equation}
+y = u(x)\frac{1}{v(x)}.
+\end{equation}
+We then apply the product rule on $u(x)$ and $1/v(x)$ to get
+\begin{equation}
+\frac{dy}{dx}
+= u(x)\frac{d}{dx}\left[\frac{1}{v(x)}\right]
++ \frac{1}{v(x)}\frac{du}{dx}.
+\end{equation}
+
+We can use the rule from Table~\ref{tab:common_rules} that gives the derivative of $x^n$ by plugging in $n=-1$ to get that the derivative of $1/x$ is $-1/x^2$. Using this result together with the chain rule yields
+\begin{equation}
+\frac{d}{dx}\left[\frac{1}{v(x)}\right]
+= -\frac{1}{[v(x)]^2}\frac{dv}{dx}.
+\end{equation}
+Substituting this into the product-rule expression yields
+\begin{align}
+\frac{dy}{dx}
+&= -\frac{u(x)}{[v(x)]^2}\frac{dv}{dx}
+   + \frac{1}{v(x)}\frac{du}{dx}
+\end{align}
+Rewriting into the standard form, this yields the quotient rule:
+\begin{equation}
+\frac{d}{dx}\left[\frac{u(x)}{v(x)}\right]
+= \frac{v(x)\frac{du}{dx}
+-u(x)\frac{dv}{dx}}{[v(x)]^2}
+\end{equation}
+
+To memorize this, the classic poem to say repeatedly to yourself is ``low d high, less high d low, draw the line and down below, denominator squared will go'' where ``d'' is meant to be short for $d/dx$. It's not silly if it works...
+
+\subsection{Integration By Parts}
+
+Left as an exercise to the reader! Armed with this set of key calculus concepts, it's a great time to solve some problems, go back to a calculus textbook or other reference, and do great research!
+
+\subsection*{AI Use Statement}
+
+The writing in this document was prepared entirely without AI. The concept for the derivation of the derivatives of the sine and cosine without the use of Taylor Series (i.e. the way the author learned it), as well as the concept for the graphical illustration for the product rule, were the result of interaction with generative AI. Both approaches have literature citations \footnote{C. S. Ogilvy, Derivatives of sin and cos , American Mathematical Monthly 67 (1960) 673.} \footnote{Strang, G. (1991). Calculus. Wellesley-Cambridge Press.}.
+
+The concepts for all of the figures in this document was created without the use of AI. Generative AI used hand drawings of the figures to produce python code that produced the final figure images.
+
+All interactions with generative AI were with the Google Gemini 3.5 Thinking model.
 
 \end{document}
