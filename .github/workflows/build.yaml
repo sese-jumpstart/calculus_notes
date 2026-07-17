@@ -29,7 +29,7 @@ jobs:
         run: python -m pip install --upgrade numpy matplotlib
 
       - name: Generate f1.png
-        run: python calculus/plot.py
+        run: plot.py
 
       - name: Install LaTeX
         run: |
@@ -44,16 +44,16 @@ jobs:
 
       - name: Remove auxiliary LaTeX files
         run: |
-          rm -f calculus/main.aux
-          rm -f calculus/main.log
-          rm -f calculus/main.out
+          rm -f main.aux
+          rm -f main.log
+          rm -f main.out
 
       - name: Commit generated files
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add calculus/f1.png calculus/main.pdf
+          git add f1.png main.pdf
 
           if git diff --cached --quiet; then
             echo "The generated files have not changed."
