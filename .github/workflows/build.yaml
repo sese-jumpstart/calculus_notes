@@ -52,7 +52,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add f1.png main.pdf
+          git add f1.png notes.pdf
 
           if git diff --cached --quiet; then
             echo "The generated files have not changed."
